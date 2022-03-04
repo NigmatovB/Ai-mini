@@ -1,0 +1,144 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.container{
+    /* border: 0.1vw solid white; */
+    max-width: 1200vw;
+    max-height: 800vh;
+    width: 80vw;
+    height: 75vh;
+    margin: 0 auto;
+    margin-top: 7%;
+}
+
+.header{
+    /* border: 0.1vw solid white; */
+    width: 80vw;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.futter{
+    /* border: 0.1vw solid white; */
+    width: 80vw;
+    height: 30vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.bod{
+    /* border: 0.1vw solid white; */
+    width: 80vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-img{
+    width: 10%;
+}
+
+.right{
+    margin-right: 1%;
+}
+
+.btn{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    /* height: 20%; */
+    
+}
+.ob{
+    display: flex;
+}
+
+.p{
+    font-size: 2.5vw;
+    color: wheat;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes quiet {
+    25%{
+      transform: scaleY(.6);
+    }
+    50%{
+      transform: scaleY(.4);
+    }
+    75%{
+      transform: scaleY(.8);
+    }
+  }
+  
+  @keyframes normal {
+    25%{
+      transform: scaleY(1);
+    }
+    50%{
+      transform: scaleY(.4);
+    }
+    75%{
+      transform: scaleY(.6);
+    }
+  }
+  @keyframes loud {
+    25%{
+      transform: scaleY(1);
+    }
+    50%{
+      transform: scaleY(.4);
+    }
+    75%{
+      transform: scaleY(1.2);
+    }
+  }
+
+  .boxContainer{
+    display: flex;
+    justify-content: space-between;
+    height: 10vh;
+    --boxSize: 1.2vw;
+    --gutter: 0.5vw;
+    width: calc((var(--boxSize) + var(--gutter)) * 5);
+  }
+  
+  .box{
+    transform: scaleY(.4);
+    height: 100%;
+    width: var(--boxSize);
+    background: white;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    border-radius: 50vh;
+  }
+  
+  .box1{
+    animation-name: quiet;
+  }
+  
+  .box2{
+    animation-name: normal;
+  }
+  
+  .box3{
+    animation-name: quiet;
+  }
+  
+  .box4{
+    animation-name: loud;
+  }
+  
+  .box5{
+    animation-name: quiet;
+  }
