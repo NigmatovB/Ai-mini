@@ -4,7 +4,7 @@ import fs from 'fs'
  
 const app: Express  = express();
 // const port = 4000;
-const PORT = process.env.PORT;
+const PORT = 4000;
 
 app.use( express.static( join( process.cwd(), 'src', 'public' ) ) )
 
