@@ -3,7 +3,8 @@ import { format, join } from 'path/posix';
 import fs from 'fs'
  
 const app: Express  = express();
-const port = 4000;
+// const port = 4000;
+const PORT = process.env.PORT || 6000;
 
 app.use( express.static( join( process.cwd(), 'src', 'public' ) ) )
 
@@ -16,4 +17,4 @@ app.get( '/data', async ( req: Request, res, Response ) => {
     res.send( data )
 } )
 
-app.listen( port )
+app.listen( PORT )
