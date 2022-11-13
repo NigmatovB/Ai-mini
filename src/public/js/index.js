@@ -1,107 +1,43 @@
-const st = document.querySelector('#start')
-const hed = document.querySelector('#on')
-const p = document.querySelector('#p')
-const h1 = document.querySelector('#h1')
-
-let speech = new SpeechSynthesisUtterance();
-speech.lang = "ru";
-let voices = [];
-window.speechSynthesis.onvoiceschanged = () => {
-    voices = window.speechSynthesis.getVoices();
-    speech.voice = voices[63];
-};
-
-var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-var recognition = new SpeechRecognition();
-recognition.lang = 'ru'
-
-st.addEventListener( 'click', ( ) => {
-  lis()
-} )
-
-
-
-function lis() {
-  console.log('running');
-
-  recognition.onspeechend = function () {
-      recognition.stop();
-  }
-     recognition.onresult = function (event) {
-      var transcript = event.results[0][0].transcript;
-      transcript = transcript.toLowerCase().trim()
-
-      console.log(transcript);
-
-    ;( async ( ) => {
-      console.log(1);
-        on++
-        let data = await fetch('/data')
-        data = await data.json()
-        let count = 0
-
-        console.log(data);
-
-        for(let i in data){
-            if( transcript === i ){
-                console.log(1);
-                    p.innerHTML = transcript
-                    sp( data[i][0] )
-                    anime(1)
-                    setTimeout( ( ) => { 
-                    anime(2)
-                    }, data[i][1] )
-                    count++
-              } 
-        }
-        if ( count == 0 ) {
-            console.log(2);
-              sp( 'не понимаю таких заявлений' )
-              anime(1)
-              setTimeout( ( ) => { 
-                  anime(2)
-                  }, 3300 )
-          }
-    })()
-
-    if ( on == 0 ) {
-        console.log(2);
-          sp( 'не слишала повтори пожалуйста' )
-          anime(1)
-          setTimeout( ( ) => { 
-              anime(2)
-              }, 3300 )
-      }
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
   };
-    recognition.start();
 }
 
-function sp( val ){
-  speech.text = val
-  window.speechSynthesis.speak(speech);
-}
+function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
 
-function anime( val ){
-  if( val === 1 ){
-    const div = document.createElement('div')
-    div.classList.add("ob");
-    let str = ``
-    for(let i = 0; i < 6; i++ ){
-      str +=  `<div class="boxContainer right">
-                  <div class="box box1"></div>
-                  <div class="box box2"></div>
-                  <div class="box box3"></div>
-                  <div class="box box4"></div>
-                  <div class="box box5"></div>
-              </div>`
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+
+    daysSpan.innerHTML = t.days;
+    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+    if (t.total <= 0) {
+      clearInterval(timeinterval);
     }
-    div.innerHTML = str
-    hed.append(div)
-  } else {
-    hed.innerHTML = ''
-    setTimeout( ( ) => { 
-      p.innerHTML = ''
-     }, 500 )
   }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
 }
 
+// var deadline="January 01 2025 00:00:00 GMT+0300"; //for Ukraine
+// for endless timer
+var deadline = '1/08/2026';
+initializeClock('countdown', deadline);
